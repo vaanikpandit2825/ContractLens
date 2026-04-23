@@ -1,56 +1,477 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_gradient"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#080710"
+    android:fillViewport="true">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DevLens"
-        android:gravity="center"
-        android:textSize="40sp"
-        android:layout_marginTop="45dp"
-        android:id="@+id/etTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/etSubtitle"
-        android:text="Decode your developer skills"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:textColor="#94A3B8"
-        app:layout_constraintTop_toBottomOf="@id/etTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:minHeight="700dp"
+        android:paddingBottom="32dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/etSubtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginHorizontal="24dp"
-        app:boxBackgroundMode="outlined"
-        app:boxCornerRadiusTopStart="24dp"
-        app:boxCornerRadiusTopEnd="24dp"
-        app:boxCornerRadiusBottomStart="24dp"
-        app:boxCornerRadiusBottomEnd="24dp"
-        android:hint="Enter your github username">
+        <View
+            android:id="@+id/topBackground"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:background="@drawable/bg_top_section"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#64748B"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="40dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/bg_logo_icon">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_contract"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="ContractLens"
+                android:textColor="#7F77DD"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.06"/>
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_profile_circle"
+                android:padding="8dp"
+                android:src="@drawable/ic_profile"
+                android:tint="#5F5E5A"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/headline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="Read every\nword.\nOr we will."
+            android:textColor="#F1EFE8"
+            android:textSize="36sp"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingMultiplier="1.05"
+            android:letterSpacing="-0.03"
+            app:layout_constraintTop_toBottomOf="@id/topBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/subHeadline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="64dp"
+            android:text="Upload any contract. AI flags what can hurt you — before you sign."
+            android:textColor="#444466"
+            android:textSize="13sp"
+            android:lineSpacingMultiplier="1.6"
+            app:layout_constraintTop_toBottomOf="@id/headline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <HorizontalScrollView
+            android:id="@+id/pillsScroll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:scrollbars="none"
+            android:clipToPadding="false"
+            app:layout_constraintTop_toBottomOf="@id/subHeadline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_pill"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp">
+                    <View
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:background="@drawable/bg_dot_red"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="Hidden fees"
+                        android:textColor="#888780"
+                        android:textSize="11sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_pill"
+                    android:layout_marginStart="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp">
+                    <View
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:background="@drawable/bg_dot_amber"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="Auto-renewals"
+                        android:textColor="#888780"
+                        android:textSize="11sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_pill"
+                    android:layout_marginStart="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp">
+                    <View
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:background="@drawable/bg_dot_red"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="IP grabs"
+                        android:textColor="#888780"
+                        android:textSize="11sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_pill"
+                    android:layout_marginStart="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp">
+                    <View
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:background="@drawable/bg_dot_amber"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="Liability traps"
+                        android:textColor="#888780"
+                        android:textSize="11sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contractCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:cardBackgroundColor="#0E0C1F"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@id/pillsScroll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="CONTRACT PREVIEW"
+                    android:textColor="#444466"
+                    android:textSize="9sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="sans-serif-medium"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/bg_text_line_90"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/bg_text_line_75"/>
+
+
+                <LinearLayout
+                    android:id="@+id/redClause"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_clause_red"
+                    android:layout_marginBottom="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <View android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginBottom="5dp" android:background="@drawable/bg_clause_line_red_85"/>
+                        <View android:layout_width="match_parent" android:layout_height="6dp" android:background="@drawable/bg_clause_line_red_60"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="HIGH"
+                        android:textColor="#FFFFFF"
+                        android:textSize="9sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:background="@drawable/bg_badge_red"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/bg_text_line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_clause_amber"
+                    android:layout_marginBottom="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <View android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginBottom="5dp" android:background="@drawable/bg_clause_line_amber_90"/>
+                        <View android:layout_width="match_parent" android:layout_height="6dp" android:background="@drawable/bg_clause_line_amber_50"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="MED"
+                        android:textColor="#2d1a00"
+                        android:textSize="9sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:background="@drawable/bg_badge_amber"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/bg_text_line"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#1e1b3a"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/bg_legend_red"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 High risk"
+                        android:textColor="#666666"
+                        android:textSize="10sp"/>
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/bg_legend_amber"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Medium"
+                        android:textColor="#666666"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUpload"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="Upload contract"
+            android:textColor="#EEEDFE"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-medium"
+            app:backgroundTint="#534AB7"
+            app:cornerRadius="16dp"
+            app:strokeWidth="0dp"
+            app:icon="@drawable/ic_upload"
+            app:iconTint="#EEEDFE"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:layout_constraintTop_toBottomOf="@id/contractCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPaste"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="Paste text instead"
+            android:textColor="#444466"
+            android:textSize="14sp"
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="12dp"
+            app:strokeColor="#1e1b3a"
+            app:strokeWidth="1dp"
+            app:layout_constraintTop_toBottomOf="@id/btnUpload"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/trustRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/btnPaste"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Encrypted"
+                android:textColor="#444466"
+                android:textSize="11sp"/>
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="3dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_dot_divider"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Never stored"
+                android:textColor="#444466"
+                android:textSize="11sp"/>
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="3dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_dot_divider"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Free to try"
+                android:textColor="#444466"
+                android:textSize="11sp"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
