@@ -21,7 +21,7 @@ class ResultActivity : AppCompatActivity() {
             tvClauses.text = pendingResult
             pendingResult = ""
         } else {
-            tvClauses.text = "No analysis available. Please go back and try again."
+            tvClauses.text = "No analysis available.Please go back and try again."
         }
     }
 }

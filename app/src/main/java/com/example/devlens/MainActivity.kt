@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 val response = model.generateContent(prompt)
                 val result = response.text ?: "No response received from Gemini."
 
-                // ✅ Fixed: Use companion object instead of putExtra (avoids TransactionTooLargeException)
+
                 ResultActivity.pendingResult = result
                 val intent = Intent(this@MainActivity, ResultActivity::class.java)
                 startActivity(intent)
