@@ -43,7 +43,7 @@
                 <ImageView
                     android:layout_width="14dp"
                     android:layout_height="14dp"
-                    android:src="@drawable/ic_contract"
+                    android:src="@drawable/baseline_file_upload_24"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
                 android:layout_height="32dp"
                 android:background="@drawable/bg_profile_circle"
                 android:padding="8dp"
-                android:src="@drawable/ic_profile"
+                android:src="@drawable/baseline_file_upload_24"
                 android:tint="#5F5E5A"/>
         </LinearLayout>
 
@@ -279,8 +279,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <View android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginBottom="5dp" android:background="@drawable/bg_clause_line_red_85"/>
-                        <View android:layout_width="match_parent" android:layout_height="6dp" android:background="@drawable/bg_clause_line_red_60"/>
+                        <View android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginBottom="5dp" android:background="@drawable/bg_clause_red"/>
+                        <View android:layout_width="match_parent" android:layout_height="6dp" android:background="@drawable/bg_clause_red"/>
                     </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
@@ -319,8 +319,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <View android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginBottom="5dp" android:background="@drawable/bg_clause_line_amber_90"/>
-                        <View android:layout_width="match_parent" android:layout_height="6dp" android:background="@drawable/bg_clause_line_amber_50"/>
+                        <View android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginBottom="5dp" android:background="@drawable/bg_clause_amber"/>
+                        <View android:layout_width="match_parent" android:layout_height="6dp" android:background="@drawable/bg_clause_amber"/>
                     </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
@@ -399,7 +399,7 @@
             app:backgroundTint="#534AB7"
             app:cornerRadius="16dp"
             app:strokeWidth="0dp"
-            app:icon="@drawable/ic_upload"
+            app:icon="@drawable/baseline_file_upload_24"
             app:iconTint="#EEEDFE"
             app:iconGravity="textStart"
             app:iconPadding="8dp"

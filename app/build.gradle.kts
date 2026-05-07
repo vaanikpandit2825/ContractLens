@@ -4,10 +4,10 @@ plugins {
 
 android {
     namespace = "com.example.devlens"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+    compileSdk = 36
+
+    buildFeatures {
+        buildConfig = true
     }
 
     defaultConfig {
@@ -21,14 +21,21 @@ android {
     }
 
     buildTypes {
+        val apiKey = project.findProperty("GEMINI_API_KEY")?.toString() ?: ""
+
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "GEMINI_API_KEY", "\"$apiKey\"")
+        }
+        debug {
+            buildConfigField("String", "GEMINI_API_KEY", "\"$apiKey\"")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -46,4 +53,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.activity:activity-ktx:1.8.0")
+    implementation("com.tom-roush:pdfbox-android:2.0.27.0")
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 }
