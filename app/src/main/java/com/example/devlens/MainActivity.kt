@@ -1,77 +1,98 @@
 package com.example.devlens
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.google.ai.client.generativeai.GenerativeModel
 import com.google.android.material.button.MaterialButton
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
-import com.google.ai.client.generativeai.GenerativeModel
-import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
 
     private val filePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+
             if (uri != null) {
+
                 val inputStream = contentResolver.openInputStream(uri)
+
                 if (inputStream != null) {
+
                     try {
+
                         val pdf = PDDocument.load(inputStream)
+
                         val stripper = PDFTextStripper()
+
                         val text = stripper.getText(pdf)
+
                         pdf.close()
+                        inputStream.close()
+
                         analyzeContract(text)
+
                     } catch (e: Exception) {
-                        Toast.makeText(this, "Failed to read PDF: ${e.message}", Toast.LENGTH_LONG).show()
+
+                        Toast.makeText(
+                            this,
+                            "PDF Error: ${e.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
-                } else {
-                    Toast.makeText(this, "Could not open file.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
     private fun analyzeContract(text: String) {
 
-        // Safety check — avoid sending an empty document
-        if (text.isBlank()) {
-            Toast.makeText(this, "PDF appears to be empty or unreadable.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
         val model = GenerativeModel(
-            modelName = "gemini-1.5-flash",   // ✅ Fixed: removed "-latest"
+            modelName = "gemini-1.5-flash",
             apiKey = BuildConfig.GEMINI_API_KEY
         )
 
-        val prompt = """
-            You are an expert contract lawyer, legal risk analyst, and compliance advisor.
-
-            Analyze the following contract in extreme depth.
-            Finally, give a SIMPLE SUMMARY in plain English for a non-legal person.
-
-            Contract:
-            $text
-        """.trimIndent()
-
         lifecycleScope.launch {
+
             try {
-                val response = model.generateContent(prompt)
-                val result = response.text ?: "No response received from Gemini."
 
+                val response = model.generateContent(
+                    """
+                    You are an expert contract lawyer.
 
-                ResultActivity.pendingResult = result
-                val intent = Intent(this@MainActivity, ResultActivity::class.java)
+                    Analyze this contract and give:
+                    - Major risks
+                    - Dangerous clauses
+                    - Simple summary
+
+                    Contract:
+                    ${text.take(2000)}
+                    """.trimIndent()
+                )
+
+                val result = response.text ?: "No response from Gemini"
+
+                val intent = Intent(
+                    this@MainActivity,
+                    ResultActivity::class.java
+                )
+
+                intent.putExtra("result", result)
+
                 startActivity(intent)
 
             } catch (e: Exception) {
+
+                Log.e("GEMINI_ERROR", "REAL_ERROR", e)
+
                 Toast.makeText(
                     this@MainActivity,
-                    "Error: ${e.message}",
+                    e.toString(),
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -80,12 +101,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
+
+        Toast.makeText(this, BuildConfig.GEMINI_API_KEY, Toast.LENGTH_LONG).show()
+
+        Log.d("API_TEST", BuildConfig.GEMINI_API_KEY)
 
         PDFBoxResourceLoader.init(applicationContext)
 
+        Log.d("API_TEST", BuildConfig.GEMINI_API_KEY)
+
         val btn = findViewById<MaterialButton>(R.id.btnUpload)
+
         btn.setOnClickListener {
+
             filePicker.launch("application/pdf")
         }
     }
