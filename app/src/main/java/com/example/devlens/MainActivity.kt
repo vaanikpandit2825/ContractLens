@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     private fun analyzeContract(text: String) {
 
         val model = GenerativeModel(
-            modelName = "gemini-1.5-flash",
+            modelName = "gemini-1.5-flash-latest",
             apiKey = BuildConfig.GEMINI_API_KEY
         )
 
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                     - Simple summary
 
                     Contract:
-                    ${text.take(2000)}
+                    ${'$'}{text.take(4000)}
                     """.trimIndent()
                 )
 
@@ -88,11 +88,13 @@ class MainActivity : AppCompatActivity() {
 
             } catch (e: Exception) {
 
-                Log.e("GEMINI_ERROR", "REAL_ERROR", e)
+                e.printStackTrace()
+
+                Log.e("GEMINI_FULL_ERROR", Log.getStackTraceString(e))
 
                 Toast.makeText(
                     this@MainActivity,
-                    e.toString(),
+                    Log.getStackTraceString(e).take(300),
                     Toast.LENGTH_LONG
                 ).show()
             }
