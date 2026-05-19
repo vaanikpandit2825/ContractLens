@@ -2,7 +2,7 @@
 
 <!-- ANIMATED TYPING BANNER -->
 <a href="#">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=800&size=48&duration=3000&pause=1000&color=00D4FF&center=true&vCenter=true&width=700&height=90&lines=DevLens" alt="DevLens" />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=800&size=48&duration=3000&pause=1000&color=00D4FF&center=true&vCenter=true&width=700&height=90&lines=ContractLens" alt="ContractLens" />
 </a>
 
 <a href="#">
@@ -27,13 +27,13 @@
 
 ---
 
-## `01` &nbsp; What Is DevLens?
+## `01` &nbsp; What Is ContractLens?
 
-> **DevLens** turns the black box of legal contracts into something you can actually understand — in seconds.
+> **ContractLens** turns the black box of legal contracts into something you can actually understand — in seconds.
 
-Most people sign contracts without fully reading them. Not because they're careless — because legal language is dense, obfuscated, and deliberately opaque. **DevLens fixes that.**
+Most people sign contracts without fully reading them. Not because they're careless — because legal language is dense, obfuscated, and deliberately opaque. **ContractLens fixes that.**
 
-Upload any PDF contract. DevLens extracts the text, fires it through **Gemini 1.5 Pro**, and surfaces the risky clauses — explained in plain English, scored by severity, and delivered inside a clean Android interface.
+Upload any PDF contract. ContractLens extracts the text, fires it through **Gemini 1.5 Pro**, and surfaces the risky clauses — explained in plain English, scored by severity, and delivered inside a clean Android interface.
 
 It's not a PDF reader. It's a **risk engine**.
 
@@ -169,11 +169,11 @@ flowchart LR
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/DevLens.git
-cd DevLens
+git clone https://github.com/yourusername/ContractLens.git
+cd ContractLens
 
 # 2. Open in Android Studio (Hedgehog or later)
-# File → Open → select the DevLens folder
+# File → Open → select the ContractLens folder
 
 # 3. Add your Gemini API key to local.properties
 echo "GEMINI_API_KEY=your_key_here" >> local.properties
@@ -341,14 +341,14 @@ See [`LICENSE`](LICENSE) for full terms.
 <div align="center">
 
 <a href="#">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=15&duration=4000&pause=600&color=00D4FF&center=true&vCenter=true&width=650&height=35&lines=Contracts+are+written+by+lawyers+for+lawyers.;DevLens+changes+the+equation." alt="Footer tagline" />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=15&duration=4000&pause=600&color=00D4FF&center=true&vCenter=true&width=650&height=35&lines=Contracts+are+written+by+lawyers+for+lawyers.;ContractLens+changes+the+equation." alt="Footer tagline" />
 </a>
 
 <br/><br/>
 
-[![GitHub Stars](https://img.shields.io/github/stars/vaanikpandit2825/DevLens?style=for-the-badge&color=00D4FF&labelColor=0D1117)](https://github.com/yourusername/DevLens/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/vaanikpandit2825/DevLens?style=for-the-badge&color=7C85FF&labelColor=0D1117)](https://github.com/yourusername/DevLens/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/vaanikpandit2825/DevLens?style=for-the-badge&color=FF6B6B&labelColor=0D1117)](https://github.com/yourusername/DevLens/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/vaanikpandit2825/ContractLens?style=for-the-badge&color=00D4FF&labelColor=0D1117)](https://github.com/yourusername/ContractLens/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/vaanikpandit2825/ContractLens?style=for-the-badge&color=7C85FF&labelColor=0D1117)](https://github.com/yourusername/ContractLens/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/vaanikpandit2825/ContractLens?style=for-the-badge&color=FF6B6B&labelColor=0D1117)](https://github.com/yourusername/ContractLens/issues)
 
 <br/>
 
@@ -360,6 +360,6 @@ See [`LICENSE`](LICENSE) for full terms.
 
 <br/>
 
-*If DevLens helped you or impressed you — drop a ⭐. It costs nothing and means something.*
+*If ContractLens helped you or impressed you — drop a ⭐. It costs nothing and means something.*
 
 </div>
