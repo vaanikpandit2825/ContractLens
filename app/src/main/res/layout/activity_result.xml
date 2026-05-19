@@ -1,115 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient">
+    android:background="#080710">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contract Report"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp"/>
+        android:paddingBottom="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1A1A2E"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="48dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="16dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_logo_icon"
+                android:src="@drawable/baseline_file_upload_24"
+                android:scaleX="-1"
+                android:contentDescription="Back"
+                android:tint="#7F77DD"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Risk Score"
-                android:textColor="#AAAAFF"
-                android:textSize="14sp"/>
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="Contract Analysis"
+                android:textColor="#F1EFE8"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"/>
 
             <TextView
-                android:id="@+id/tvScore"
+                android:id="@+id/tvRiskBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="--"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="#FF5A5A"/>
-
-            <TextView
-                android:id="@+id/tvVerdict"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Verdict"
+                android:text="HIGH"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"/>
+                android:textSize="10sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.08"
+                android:background="@drawable/bg_badge_red"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Deal Breakers"
-            android:textColor="#FF5A5A"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/tvDealBreakers"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_pill"
+            android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clause Analysis"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
 
-        <TextView
-            android:id="@+id/tvClauses"
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="14dp"
+                    android:background="#7F77DD"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SUMMARY"
+                    android:textColor="#7F77DD"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#C8C6D4"
+                android:textSize="13sp"
+                android:lineSpacingMultiplier="1.6"
+                android:text="Loading..."/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_clause_red"
+            android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Missing Clauses"
-            android:textColor="#FFB84D"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
 
-        <TextView
-            android:id="@+id/tvMissing"
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="14dp"
+                    android:background="#FF5A5A"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KEY RISKS"
+                    android:textColor="#FF5A5A"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRisks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#F1EFE8"
+                android:textSize="13sp"
+                android:lineSpacingMultiplier="1.7"
+                android:text="Loading..."/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_clause_amber"
+            android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Summary"
-            android:textColor="#AAAAFF"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
 
-        <TextView
-            android:id="@+id/tvSummary"
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="14dp"
+                    android:background="#FFB84D"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DANGEROUS CLAUSES"
+                    android:textColor="#FFB84D"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvClauses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#F1EFE8"
+                android:textSize="13sp"
+                android:lineSpacingMultiplier="1.7"
+                android:text="Loading..."/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"/>
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_pill"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="14dp"
+                    android:background="#5FC47A"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RECOMMENDATIONS"
+                    android:textColor="#5FC47A"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRecommendations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#C8C6D4"
+                android:textSize="13sp"
+                android:lineSpacingMultiplier="1.7"
+                android:text="Loading..."/>
+        </LinearLayout>
 
     </LinearLayout>
-
 </ScrollView>

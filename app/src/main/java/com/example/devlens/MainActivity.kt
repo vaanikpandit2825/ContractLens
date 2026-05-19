@@ -1,6 +1,7 @@
 package com.example.devlens
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -20,101 +21,145 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
-    private val client = OkHttpClient()
+    private lateinit var btnUpload: MaterialButton
 
-    private val filePicker =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            if (uri != null) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    try {
-                        val inputStream = contentResolver.openInputStream(uri)
-                            ?: throw Exception("Cannot open file")
-                        val pdf = PDDocument.load(inputStream)
-                        val text = PDFTextStripper().getText(pdf)
-                        pdf.close()
-                        inputStream.close()
-                        withContext(Dispatchers.Main) {
-                            analyzeContract(text)
-                        }
-                    } catch (e: Exception) {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(this@MainActivity, "PDF Error: ${e.message}", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
-            }
-        }
-
-    private fun analyzeContract(text: String) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val prompt = """
-                    You are an expert contract lawyer.
-                    Analyze this contract and give:
-                    - Major risks
-                    - Dangerous clauses
-                    - Simple summary
-                    
-                    Contract:
-                    ${text.take(4000)}
-                """.trimIndent()
-
-                val requestBody = JSONObject().apply {
-                    put("contents", JSONArray().apply {
-                        put(JSONObject().apply {
-                            put("parts", JSONArray().apply {
-                                put(JSONObject().apply {
-                                    put("text", prompt)
-                                })
-                            })
-                        })
-                    })
-                }.toString()
-
-                val request = Request.Builder()
-                    .url("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=...")
-                    .post(requestBody.toRequestBody("application/json".toMediaType()))
-                    .build()
-
-                val response = client.newCall(request).execute()
-                val responseBody = response.body?.string() ?: throw Exception("Empty response")
-
-                if (!response.isSuccessful) {
-                    throw Exception("API Error ${response.code}: $responseBody")
-                }
-
-                val result = JSONObject(responseBody)
-                    .getJSONArray("candidates")
-                    .getJSONObject(0)
-                    .getJSONObject("content")
-                    .getJSONArray("parts")
-                    .getJSONObject(0)
-                    .getString("text")
-
-                withContext(Dispatchers.Main) {
-                    val intent = Intent(this@MainActivity, ResultActivity::class.java)
-                    intent.putExtra("result", result)
-                    startActivity(intent)
-                }
-
-            } catch (e: Exception) {
-                Log.e("GEMINI_FULL_ERROR", Log.getStackTraceString(e))
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@MainActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
+    private val filePickerLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri ->
+        uri?.let { extractAndAnalyze(it) }
     }
+
+    private val httpClient = OkHttpClient.Builder()
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
+        .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         PDFBoxResourceLoader.init(applicationContext)
-        findViewById<MaterialButton>(R.id.btnUpload).setOnClickListener {
-            filePicker.launch("application/pdf")
+
+        btnUpload = findViewById(R.id.btnUpload)
+        btnUpload.setOnClickListener {
+            filePickerLauncher.launch("application/pdf")
         }
+    }
+
+    private fun extractAndAnalyze(uri: Uri) {
+        lifecycleScope.launch {
+            try {
+                setLoading(true, "Extracting PDF...")
+
+                val pdfText = withContext(Dispatchers.IO) {
+                    extractTextFromPdf(uri)
+                }
+
+                if (pdfText.isBlank()) {
+                    setLoading(false)
+                    Toast.makeText(this@MainActivity,
+                        "Could not extract text. Is this a scanned PDF?",
+                        Toast.LENGTH_LONG).show()
+                    return@launch
+                }
+
+                setLoading(true, "Analyzing with AI...")
+
+                val result = withContext(Dispatchers.IO) {
+                    analyzeWithGemini(pdfText)
+                }
+
+                setLoading(false)
+
+                startActivity(
+                    Intent(this@MainActivity, ResultActivity::class.java)
+                        .putExtra("result", result)
+                )
+
+            } catch (e: Exception) {
+                setLoading(false)
+                Log.e("DEVLENS_ERROR", Log.getStackTraceString(e))
+                Toast.makeText(this@MainActivity,
+                    "Error: ${e.message?.take(200)}",
+                    Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun extractTextFromPdf(uri: Uri): String {
+        val stream = contentResolver.openInputStream(uri)
+            ?: throw Exception("Cannot open file")
+        return stream.use {
+            PDDocument.load(it).use { doc ->
+                PDFTextStripper().getText(doc)
+            }
+        }
+    }
+
+    private fun analyzeWithGemini(contractText: String): String {
+        val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${BuildConfig.GEMINI_API_KEY}"
+
+        val prompt = """
+            You are a legal contract analysis expert. Analyze the contract and respond using EXACTLY these section headers in this order. Do not add extra headers or change the wording.
+
+            RISK LEVEL: [write only one word: HIGH, MEDIUM, or LOW]
+
+            SUMMARY
+            [2-3 sentences describing what this contract is and its purpose]
+
+            KEY RISKS
+            [bullet points starting with - describing the top risks for the signing party]
+
+            DANGEROUS CLAUSES
+            [for each dangerous clause: quote the relevant text in quotes, then explain why it is harmful]
+
+            RECOMMENDATIONS
+            [bullet points starting with - of specific things the signing party should negotiate or watch out for]
+
+            Contract:
+            ${contractText.take(25000)}
+        """.trimIndent()
+
+        val body = JSONObject().apply {
+            put("contents", JSONArray().apply {
+                put(JSONObject().apply {
+                    put("parts", JSONArray().apply {
+                        put(JSONObject().put("text", prompt))
+                    })
+                })
+            })
+        }.toString()
+
+        val response = httpClient.newCall(
+            Request.Builder()
+                .url(url)
+                .post(body.toRequestBody("application/json".toMediaType()))
+                .build()
+        ).execute()
+
+        val responseBody = response.body?.string()
+            ?: throw Exception("Empty response from Gemini")
+
+        if (!response.isSuccessful) {
+            throw Exception("API Error ${response.code}: $responseBody")
+        }
+
+        return JSONObject(responseBody)
+            .getJSONArray("candidates")
+            .getJSONObject(0)
+            .getJSONObject("content")
+            .getJSONArray("parts")
+            .getJSONObject(0)
+            .getString("text")
+    }
+
+    private fun setLoading(loading: Boolean, label: String = "Upload contract") {
+        btnUpload.isEnabled = !loading
+        btnUpload.text = if (loading) label else "Upload contract"
     }
 }
