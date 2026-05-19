@@ -27,7 +27,7 @@
 
 ---
 
-## `// 01` &nbsp; What Is DevLens?
+## `01` &nbsp; What Is DevLens?
 
 > **DevLens** turns the black box of legal contracts into something you can actually understand — in seconds.
 
@@ -41,7 +41,7 @@ It's not a PDF reader. It's a **risk engine**.
 
 ---
 
-## `// 02` &nbsp; Tech Stack
+## `02` &nbsp; Tech Stack
 
 <br/>
 
@@ -63,7 +63,7 @@ It's not a PDF reader. It's a **risk engine**.
 
 ---
 
-## `// 03` &nbsp; Feature Set
+## `03` &nbsp; Feature Set
 
 <br/>
 
@@ -79,7 +79,7 @@ Upload contracts directly from device storage. Any legal PDF, any size — no pr
 </td>
 <td width="33%" valign="top">
 
-### 🤖 &nbsp; AI Risk Detection
+### &nbsp; AI Risk Detection
 Gemini 1.5 Pro identifies hidden liabilities, one-sided clauses, and legal traps in real time with zero manual review.
 
 `Gemini 1.5 Pro`
@@ -87,7 +87,7 @@ Gemini 1.5 Pro identifies hidden liabilities, one-sided clauses, and legal traps
 </td>
 <td width="33%" valign="top">
 
-### 📊 &nbsp; Risk Scoring
+### &nbsp; Risk Scoring
 Every clause rated **Low / Medium / High** severity with color-coded visual indicators and justification per flag.
 
 `Per-clause grading`
@@ -97,7 +97,7 @@ Every clause rated **Low / Medium / High** severity with color-coded visual indi
 <tr>
 <td width="33%" valign="top">
 
-### 🔍 &nbsp; Contract Analysis
+### &nbsp; Contract Analysis
 Full clause-by-clause breakdown with section-level context preserved. No hallucinated summaries — grounded in your document.
 
 `Deep parsing`
@@ -126,7 +126,7 @@ Home → Upload → Analysis → Result. Clean navigation flow with persistent s
 
 ---
 
-## `// 04` &nbsp; Architecture Flow
+## `04` &nbsp; Architecture Flow
 
 <br/>
 
@@ -134,9 +134,9 @@ Home → Upload → Analysis → Result. Clean navigation flow with persistent s
 flowchart LR
     A([📄 PDF Upload]) --> B[PDFBox Android\nText Extraction]
     B --> C[Coroutine Scope\nAsync Layer]
-    C --> D([🤖 Gemini 1.5 Pro\nAI Engine])
+    C --> D([ Gemini 1.5 Pro\nAI Engine])
     D --> E[Risk Analysis\nClause Scoring]
-    E --> F([📱 Result Screen])
+    E --> F([ Result Screen])
 
     style A fill:#0d2137,color:#7ec8f7,stroke:#1a4a7a,stroke-width:1.5px
     style B fill:#1a1a2e,color:#a78bfa,stroke:#3d2d6b,stroke-width:1px
@@ -165,7 +165,7 @@ flowchart LR
 
 ---
 
-## `// 05` &nbsp; Installation
+## `05` &nbsp; Installation
 
 ```bash
 # 1. Clone the repository
@@ -202,7 +202,7 @@ echo "GEMINI_API_KEY=your_key_here" >> local.properties
 
 ---
 
-## `// 06` &nbsp; Engineering Challenges Solved
+## `06` &nbsp; Engineering Challenges Solved
 
 Real problems solved during development — not tutorials, not theory.
 
@@ -269,7 +269,7 @@ Legal documents have no standard format. Built a prompt pipeline that forces cla
 
 ---
 
-## `// 07` &nbsp; Roadmap
+## `07` &nbsp; Roadmap
 
 <br/>
 
@@ -297,7 +297,7 @@ Legal documents have no standard format. Built a prompt pipeline that forces cla
 
 ---
 
-## `// 08` &nbsp; Contributing
+## `08` &nbsp; Contributing
 
 Contributions are welcome — but read this first.
 
@@ -323,7 +323,7 @@ git push origin feature/your-feature-name
 
 ---
 
-## `// 09` &nbsp; License
+## `09` &nbsp; License
 
 ```
 MIT License — use it, build on it, ship it.
@@ -346,9 +346,9 @@ See [`LICENSE`](LICENSE) for full terms.
 
 <br/><br/>
 
-[![GitHub Stars](https://img.shields.io/github/stars/yourusername/DevLens?style=for-the-badge&color=00D4FF&labelColor=0D1117)](https://github.com/yourusername/DevLens/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/yourusername/DevLens?style=for-the-badge&color=7C85FF&labelColor=0D1117)](https://github.com/yourusername/DevLens/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/yourusername/DevLens?style=for-the-badge&color=FF6B6B&labelColor=0D1117)](https://github.com/yourusername/DevLens/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/vaanikpandit2825/DevLens?style=for-the-badge&color=00D4FF&labelColor=0D1117)](https://github.com/yourusername/DevLens/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/vaanikpandit2825/DevLens?style=for-the-badge&color=7C85FF&labelColor=0D1117)](https://github.com/yourusername/DevLens/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/vaanikpandit2825/DevLens?style=for-the-badge&color=FF6B6B&labelColor=0D1117)](https://github.com/yourusername/DevLens/issues)
 
 <br/>
 
