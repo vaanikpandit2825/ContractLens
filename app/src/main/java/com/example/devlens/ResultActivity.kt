@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class ResultActivity : AppCompatActivity() {
 
@@ -17,10 +21,25 @@ class ResultActivity : AppCompatActivity() {
         val tvRisks             = findViewById<TextView>(R.id.tvRisks)
         val tvClauses           = findViewById<TextView>(R.id.tvClauses)
         val tvRecommendations   = findViewById<TextView>(R.id.tvRecommendations)
+        val rvClauses  =  findViewById<RecyclerView>(R.id.rvClauses)
 
         btnBack.setOnClickListener { finish() }
 
         val raw = intent.getStringExtra("result") ?: ""
+
+        try {
+
+            val type = object : TypeToken<List<ClauseAnalysis>>() {}.type
+
+            val clauses: List<ClauseAnalysis> =
+                Gson().fromJson(raw, type)
+
+            rvClauses.layoutManager = LinearLayoutManager(this)
+            rvClauses.adapter = ClauseAdapter(clauses)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         if (raw.isBlank()) {
             tvSummary.text         = "No analysis returned."
