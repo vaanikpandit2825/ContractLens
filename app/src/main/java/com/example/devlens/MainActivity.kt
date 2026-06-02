@@ -102,24 +102,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun analyzeWithGemini(contractText: String): String {
-        val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${BuildConfig.GEMINI_API_KEY}"
+        val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${BuildConfig.GEMINI_API_KEY}"
 
         val prompt = """
-            You are a legal contract analysis expert. Analyze the contract and respond using EXACTLY these section headers in this order. Do not add extra headers or change the wording.
-
-            RISK LEVEL: [write only one word: HIGH, MEDIUM, or LOW]
-
-            SUMMARY
-            [2-3 sentences describing what this contract is and its purpose]
-
-            KEY RISKS
-            [bullet points starting with - describing the top risks for the signing party]
-
-            DANGEROUS CLAUSES
-            [for each dangerous clause: quote the relevant text in quotes, then explain why it is harmful]
-
-            RECOMMENDATIONS
-            [bullet points starting with - of specific things the signing party should negotiate or watch out for]
+                  You are a legal contract analysis expert.
+        
+        Analyze the contract and return ONLY a valid JSON array.
+        
+        Format:
+        
+        [
+          {
+            "title": "Clause Name",
+            "riskLevel": "HIGH",
+            "summary": "Short summary",
+            "originalClause": "Relevant clause text",
+            "explanation": "Why this clause matters",
+            "recommendation": "What the user should do"
+          }
+        ]
+        
+        Rules:
+        - Return ONLY JSON.
+        - No markdown.
+        - No ```json.
+        - No explanation outside JSON.
+        - Include every important clause found.
+        - riskLevel must be HIGH, MEDIUM, or LOW.
 
             Contract:
             ${contractText.take(25000)}
