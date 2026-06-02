@@ -282,7 +282,7 @@ Legal documents have no standard format. Built a prompt pipeline that forces cla
 | ✅ | Risk identification and plain English output | Shipped |
 | ✅ | Multi-screen Android UI | Shipped |
 | ✅ | Error handling and loading states | Shipped |
-| ⬜ | Structured clause cards with expandable detail | In design |
+| ✅ | Structured clause cards with expandable detail | In design |
 | ⬜ | Retry system with exponential backoff | Planned |
 | ⬜ | Analysis history — local persistence via Room | Planned |
 | ⬜ | Enhanced UI micro-animations and transitions | Planned |
