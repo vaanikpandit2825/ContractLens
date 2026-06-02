@@ -55,6 +55,8 @@
                 android:paddingEnd="10dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"/>
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -227,7 +229,18 @@
                 android:textSize="13sp"
                 android:lineSpacingMultiplier="1.7"
                 android:text="Loading..."/>
+
+
+
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvClauses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:nestedScrollingEnabled="false"/>
 
     </LinearLayout>
 </ScrollView>
